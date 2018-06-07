@@ -1,41 +1,33 @@
 # _*_ coding: utf-8 _*_
-from selenium import webdriver
-from bs4 import BeautifulSoup
-import time
-import sys
+# Mac OS, Python 2.7.11
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
+import os, shutil, glob
+source_dir = "images/"
+disk = os.statvfs("/") 
+freespace = disk.f_bsize * disk.f_blocks;
+pngfiles = glob.glob(source_dir+"*.png")
+jpgfiles = glob.glob(source_dir+"*.jpg")
+giffiles = glob.glob(source_dir+"*.gif")
+allfiles = pngfiles + jpgfiles + giffiles
 
+allfilesize = 0
+for f in allfiles:
+  allfilesize += os.path.getsize(f)
 
-def index1(str):
-    try:
-        index1 = str.index('人文通')
-        return True
-    except:
-        return False
+if allfilesize > freespace:
+  print("磁碟空間不足")
+  exit(1)
 
+target_dir = source_dir + "output"
+if os.path.exists(target_dir):
+  print("目的資料夾已存在")
+  exit(1)
 
-def index2(str):
-    try:
-        index2 = str.index('自然通')
-        return True
-    except:
-        return False
-
-
-def index3(str):
-    try:
-        index3 = str.index('社會通')
-        return True
-    except:
-        return False
-
-
-def is_general(str):
-    if index1(str) or index2(str) or index3(str):
-        return True
-
-arr = range(10)
-for i in range(0, len(arr)):
-    print i
+os.mkdir(target_dir)
+imageno = 0
+for f in allfiles:
+  dirname, filename = f.split('/')
+  mainname, extname = filename.split('.')
+  targetfile = target_dir + '/' + str(imageno) + '.' + extname
+  shutil.copyfile(f, targetfile)
+  imageno += 1
