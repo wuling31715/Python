@@ -7,7 +7,7 @@ def count_down(second):
     print()
 
 def sudo_purge(password):
-    command = 'sudo purge'
+    command = 'purge'
     os.system('echo %s|sudo -S %s' % (password, command))
 
 def main():
