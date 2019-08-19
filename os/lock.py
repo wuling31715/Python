@@ -1,11 +1,11 @@
 import os, getpass
 
-def sleep():
+def lock():
     command = 'open -a ScreenSaverEngine'
     os.system(command)
     
 def main():
-    sleep()
+    lock()
 
 if __name__ == "__main__":
     main()
