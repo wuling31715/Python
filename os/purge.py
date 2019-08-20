@@ -1,10 +1,5 @@
 import os, time, getpass
-
-def countdown(second):
-    for i in range(second):
-        print(second - i, end=' ', flush=True)
-        time.sleep(1)
-    print()
+from timer import countdown
 
 def purge(password):
     command = 'purge'
